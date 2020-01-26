@@ -28,7 +28,7 @@
 #include "Goal.h"
 #include <random>
 #include "SoundEffect.h"
-
+#include "FrameTimer.h"
 class Game
 {
 public:
@@ -51,17 +51,21 @@ private:
 	Snake snek;
 	Location delta_loc = {1,0};
 	std::mt19937 rng;
+	FrameTimer ft;
 	Goal goal;
 	SoundEffect sfxEat = SoundEffect( { L"Sounds\\Eat.wav" } );
 	SoundEffect sfxSlither = SoundEffect( { L"Sounds\\Slither0.wav",L"Sounds\\Slither1.wav",L"Sounds\\Slither2.wav" } );
 	Sound sndMusic = Sound( L"Sounds\\Music_Loop.wav",Sound::LoopType::AutoFullSound );
 	Sound sndTitle = Sound( L"Sounds\\Title.wav" );
 	Sound sndFart = Sound( L"Sounds\\Fart.wav" );
-	static constexpr int snekMovePeriodMin = 4;
-	int snekMovePeriod = 20;
-	int snekMoveCounter = 0;
-	static constexpr int snekSpeedupPeriod = 180;
-	int snekSpeedupCounter = 0;
+
+	static constexpr float snekMovePeriodMin = 0.06f;
+	float snekMovePeriod = 0.4f;
+	float snekMoveCounter = 0.0f;
+	static constexpr float snekSpeedupFactor = 0.01f;
+	float snekSpeedupCounter = 0;
+
+
 	bool gameIsOver = false;
 	bool gameIsStarted = false;
 	/********************************/
